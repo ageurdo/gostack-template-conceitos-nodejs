@@ -68,7 +68,7 @@ app.post("/repositories/:id/like", (request, response) => {
   const indexfound = repositories.findIndex((item) => item.id === id);
 
   if (indexfound < 0) {
-    return response.status(404).json("Object not found!")
+    return response.status(400).json("Object not found!")
   } else {
     likeSum = repositories[indexfound].likes + 1;
     repositories[indexfound].likes = likeSum;
