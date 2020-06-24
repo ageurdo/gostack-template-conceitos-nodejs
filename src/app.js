@@ -39,14 +39,14 @@ app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
   const { title, url, techs } = request.body;
   const indexfound = repositories.findIndex((item) => item.id === id);
-  likes = repositories[indexfound].likes;
 
-  if (indexfound < 0) {
-    return response.status(404).json("Object not found!")
+  if (indexfound < 0 || request.params === undefined || request.params === null || request.params === '') {
+    return response.status(400).send();
   } else {
+    likes = repositories[indexfound].likes;
     const updatedRepository = { id, title, url, techs, likes };
     repositories[indexfound] = updatedRepository;
-    return response.status(204).send();
+    response.json(updatedRepository);
   }
 
 });
@@ -56,7 +56,7 @@ app.delete("/repositories/:id", (request, response) => {
   const indexfound = repositories.findIndex((item) => item.id === id);
 
   if (indexfound < 0) {
-    return response.status(404).json("Object not found!")
+    return response.status(400).json("Object not found!")
   } else {
     repositories.splice(indexfound, 1);
     return response.status(204).json();
