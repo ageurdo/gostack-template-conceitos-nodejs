@@ -4,8 +4,6 @@ const cors = require("cors");
 const { uuid } = require("uuidv4");
 const { json } = require("express");
 
-
-
 const app = express();
 
 app.use(express.json());
@@ -34,7 +32,6 @@ app.get("/repositories", (request, response) => {
     return response.json(repositories);
 });
 
-
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
   const { title, url, techs } = request.body;
@@ -48,7 +45,6 @@ app.put("/repositories/:id", (request, response) => {
     repositories[indexfound] = updatedRepository;
     response.json(updatedRepository);
   }
-
 });
 
 app.delete("/repositories/:id", (request, response) => {
@@ -74,8 +70,6 @@ app.post("/repositories/:id/like", (request, response) => {
     repositories[indexfound].likes = likeSum;
     return response.status(202).json(repositories[indexfound]);
   }
-
-
 });
 
 module.exports = app;
